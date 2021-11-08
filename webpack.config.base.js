@@ -4,7 +4,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
+        loader: "babel-loader",
       },
       {
         test: /\.css$/,
@@ -12,12 +12,12 @@ module.exports = {
       },
       {    
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: ['file-loader']
+        use: ['file-loader'],
       },
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
-        use: ['url-loader']
-      }
-    ]
-  }
+        use: ['url-loader'],
+      },
+    ],
+  },
 };

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
-import CircularSlider from '@fseehawer/react-circular-slider';
-import Picker from 'react-mobile-picker';
+// import CircularSlider from '@fseehawer/react-circular-slider';
+// import Picker from 'react-mobile-picker';
 
 import { ModalContainer, ModalContent, ModalHeader, ModalStyle } from './Common';
 import { TemperatureIcon } from '../Common/TemperatureIcon';
@@ -63,7 +63,7 @@ export function ModalThermostat(props) {
         />
         <ModalContent>
           <CircularSliderContainer>
-            <CircularSlider
+            {/* <CircularSlider
               label="Temperature"
               hideLabelValue={true}
               appendToValue="°"
@@ -80,13 +80,13 @@ export function ModalThermostat(props) {
               dataIndex={props.targetTemperature - props.tempMin}
               onChange={handleSliderChange}
               hideKnob={!on}
-            />
+            /> */}
             <LabelContainer>
               <LabelTitle>{on ? "HEATING TO" : "NOW"}</LabelTitle>
               <LabelTemperature>{on ? props.targetTemperature.toFixed(1) : props.currentTemperature.toFixed(1)}°</LabelTemperature>
             </LabelContainer>
           </CircularSliderContainer>
-          <Picker
+          {/* <Picker
             height={100}
             optionGroups={{
               mode: props.modes,
@@ -94,7 +94,7 @@ export function ModalThermostat(props) {
             valueGroups={{
               mode: props.currentMode,
             }}
-            onChange={handleModeChange} />
+            onChange={handleModeChange} /> */}
         </ModalContent>
       </ModalContainer>
     </Modal>

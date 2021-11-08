@@ -37,11 +37,15 @@ export function ModalThermostat(props) {
   const stateLabel = on ? `Heat to ${props.targetTemperature.toFixed(1)}°` : 'Off';
 
   function handleSliderChange(value) {
-    props.onTemperatureChange(value);
+    if (typeof props.onTemperatureChange == "function") { 
+      props.onTemperatureChange(value);
+    }
   }
 
   function handleModeChange(key, value) {
-    props.onModeChange(value);
+    if (typeof props.onModeChange == "function") { 
+      props.onModeChange(value);
+    }
   }
 
 

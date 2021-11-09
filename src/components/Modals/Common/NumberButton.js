@@ -7,15 +7,15 @@ import MiuIcon from '../../../resources/icons/down.svg';
 
 const NumberContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 `;
 
 
 const NumberButtonItem = styled.div`
-  height: 48px;
-  width: 48px;
+  height: 50px;
+  width: 50px;
   color: ${props => props.theme.button.color};
   font-weight: ${props => props.theme.modal.header.title.weight};
   font-size: 24px;
@@ -60,9 +60,9 @@ export function NumberButton(props) {
 
   return (
     <NumberContainer>
-      <NumberButtonItem onClick={handlePlus}><img src={PlusIcon} alt={'plus'}/></NumberButtonItem>
-      <div style={{height: '16px'}}/>
       <NumberButtonItem onClick={handleMiu}><img src={MiuIcon} alt={'miu'}/></NumberButtonItem>
+      <div style={{width: '32px'}}/>
+      <NumberButtonItem onClick={handlePlus}><img src={PlusIcon} alt={'plus'}/></NumberButtonItem>
     </NumberContainer>
   );
 }

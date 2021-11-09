@@ -1,5 +1,6 @@
 import React from 'react';
-import CircularProgressbar from 'react-circular-progressbar';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import PropTypes from 'prop-types';
 
 export function Progress(props) {
@@ -8,6 +9,7 @@ export function Progress(props) {
       style={{
         width: '250px',
         height: '250px',
+        transform: 'rotate(180deg)',
       }}
     >
       <svg style={{height: 0, width: 0}}>
@@ -21,7 +23,7 @@ export function Progress(props) {
           </linearGradient>
         </defs>
       </svg>
-      <CircularProgressbar strokeWidth={24} value={props.value} minValue={props.tempMin} maxValue={props.tempMax}
+      <CircularProgressbar text={''} strokeWidth={9} value={props.value || 0} minValue={props.tempMin || 0} maxValue={props.tempMax || 100}
                            styles={{path: {stroke: `url(#gradientId)`, height: '100%'}}}/>
     </div>
   );

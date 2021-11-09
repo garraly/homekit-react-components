@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import { ModalContainer, ModalContent, ModalHeader, ModalStyle, NumberButton} from './Common';
+import { ModalContainer, ModalContent, ModalHeader, ModalStyle, NumberButton, Progress} from './Common';
 import styled from '@emotion/styled';
-import {Progress} from './Common/Progress';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('html');
@@ -29,7 +28,6 @@ const LabelTemperature = styled.div`
 `;
 
 export function ModalNumber(props) {
-
 
   useEffect(()=>{
     if (props.show) {

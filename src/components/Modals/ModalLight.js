@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
@@ -11,7 +11,7 @@ Modal.setAppElement('html');
 
 export function ModalLight(props) {
   const [color] = useState('#F8CC46');
-  const modalContentRef = useRef()
+
 
   const stateLabel = props.capabilities.SUPPORT_BRIGHTNESS ?
     (props.brightness > 0 ? `${props.brightness}% Brightness` : props.state) :
@@ -23,11 +23,6 @@ export function ModalLight(props) {
     }
   }
 
-  useEffect(()=>{
-    modalContentRef.current.addEventListener('touchstart', e => {
-      e.preventDefault()
-    }, false)
-  },[])
 
   return (
     <Modal
@@ -45,7 +40,7 @@ export function ModalLight(props) {
             <img src={LightIconSvg} />
           }
         />
-        <ModalContent ref={modalContentRef}>
+        <ModalContent>
           {props.capabilities.SUPPORT_BRIGHTNESS ?
             <Slider
               value={props.brightness}

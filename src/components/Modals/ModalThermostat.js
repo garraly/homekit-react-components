@@ -33,6 +33,7 @@ const LabelTemperature = styled.div`
 `;
 
 export function ModalThermostat(props) {
+
   const on = props.currentMode !== 'Off';
   const stateLabel = on ? `Heat to ${props.targetTemperature.toFixed(1)}°` : 'Off';
 
@@ -65,7 +66,24 @@ export function ModalThermostat(props) {
             <TemperatureIcon temperature={props.currentTemperature} />
           }
         />
-        <ModalContent>
+        <ModalContent
+          ontouchstart={(e)=>{
+            e.preventDefault();
+            console.log('ontouchstart')
+          }}
+          onTouchStart={(e)=>{
+            e.preventDefault();
+            console.log('onTouchStart')
+          }}
+          onMouseDown={(e)=>{
+            e.preventDefault();
+            console.log('onMouseDown')
+          }}
+          onmousedown={(e)=>{
+            e.preventDefault();
+            console.log('onmousedown')
+          }}
+          >
           <CircularSliderContainer>
             <CircularSlider
               label="Temperature"

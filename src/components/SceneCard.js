@@ -30,7 +30,7 @@ const SceneCardName = styled.div`
 export function SceneCard(props) {
 
   function handlePress() {
-    if (props.handlePress) {
+    if (typeof props.handlePress == 'function') {
       props.handlePress();
     }
   }

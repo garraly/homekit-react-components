@@ -16,6 +16,11 @@ const colors = {
 
 export const theme = {
   colors: colors,
+  title: {
+    size: '20px',
+    color: colors.light2 + 'FF',
+    fontWeight: 'bold',
+  },
   card: {
     size: '100px',
     borderRadius: '12px',
@@ -66,5 +71,8 @@ export const theme = {
         color: colors.lightGray,
       },
     },
+  },
+  button: {
+    color: colors.lightActive,
   },
 };

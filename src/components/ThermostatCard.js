@@ -18,8 +18,8 @@ export function ThermostatCard(props) {
   }
 
   const stateLabel = props.currentMode !== 'Off' ?
-    `Heat to ${props.targetTemperature.toFixed(1)}°` :
-    'Off';
+    `调节至 ${props.targetTemperature.toFixed(1)}°` :
+    '关';
 
   return (
     <React.Fragment>
@@ -72,7 +72,7 @@ ThermostatCard.propTypes = {
 };
 
 ThermostatCard.defaultProps = {
-  modes: ['Off', 'Heat', 'Auto'],
+  modes: ['关', '指定', '自动'],
   tempMax: 30,
   tempMin: 6,
 };

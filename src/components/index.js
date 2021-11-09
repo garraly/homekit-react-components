@@ -11,3 +11,4 @@ export { LightCard } from './LightCard';
 export { ThermostatCard } from './ThermostatCard';
 export { SceneCard } from './SceneCard';
 export { GridCard } from './GridCard';
+export { NumberCard } from './NumberCard';

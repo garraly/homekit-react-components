@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
@@ -35,7 +35,7 @@ const LabelTemperature = styled.div`
 export function ModalThermostat(props) {
 
   const on = props.currentMode !== 'Off';
-  const stateLabel = on ? `Heat to ${props.targetTemperature.toFixed(1)}°` : 'Off';
+  const stateLabel = on ? `调节至 ${props.targetTemperature.toFixed(1)}°` : '关';
 
   function handleSliderChange(value) {
     if (typeof props.onTemperatureChange == "function") { 
@@ -49,6 +49,14 @@ export function ModalThermostat(props) {
     }
   }
 
+  useEffect(()=>{
+    if (props.show) {
+      document.body.style.overflow = 'hidden';
+      return ()=>{
+        document.body.style.overflow = '';
+      };
+    }
+  },[props.show]);
 
   return (
     <Modal
@@ -66,27 +74,10 @@ export function ModalThermostat(props) {
             <TemperatureIcon temperature={props.currentTemperature} />
           }
         />
-        <ModalContent
-          ontouchstart={(e)=>{
-            e.preventDefault();
-            console.log('ontouchstart')
-          }}
-          onTouchStart={(e)=>{
-            e.preventDefault();
-            console.log('onTouchStart')
-          }}
-          onMouseDown={(e)=>{
-            e.preventDefault();
-            console.log('onMouseDown')
-          }}
-          onmousedown={(e)=>{
-            e.preventDefault();
-            console.log('onmousedown')
-          }}
-          >
+        <ModalContent>
           <CircularSliderContainer>
             <CircularSlider
-              label="Temperature"
+              label="温度"
               hideLabelValue={true}
               appendToValue="°"
               min={props.tempMin}
@@ -104,19 +95,21 @@ export function ModalThermostat(props) {
               hideKnob={!on}
             />
             <LabelContainer>
-              <LabelTitle>{on ? "HEATING TO" : "NOW"}</LabelTitle>
+              <LabelTitle>{on ? "调节至" : "现在"}</LabelTitle>
               <LabelTemperature>{on ? props.targetTemperature.toFixed(1) : props.currentTemperature.toFixed(1)}°</LabelTemperature>
             </LabelContainer>
           </CircularSliderContainer>
-          <Picker
-            height={100}
-            optionGroups={{
-              mode: props.modes,
-            }}
-            valueGroups={{
-              mode: props.currentMode,
-            }}
-            onChange={handleModeChange} />
+          <div onTouchStart={(e)=>{e.preventDefault()}}>
+            <Picker
+              height={100}
+              optionGroups={{
+                mode: props.modes,
+              }}
+              valueGroups={{
+                mode: props.currentMode,
+              }}
+              onChange={handleModeChange} />
+          </div>
         </ModalContent>
       </ModalContainer>
     </Modal>

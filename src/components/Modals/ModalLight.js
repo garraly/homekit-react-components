@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
@@ -23,6 +23,14 @@ export function ModalLight(props) {
     }
   }
 
+  useEffect(()=>{
+    if (props.show) {
+      document.body.style.overflow = 'hidden'
+      return ()=>{
+        document.body.style.overflow = ''
+      }
+    }
+  },[props.show])
 
   return (
     <Modal

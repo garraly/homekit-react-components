@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
@@ -6,7 +6,6 @@ import CircularSlider from '@fseehawer/react-circular-slider';
 
 import {ModalContainer, ModalContent, ModalHeader, ModalStyle} from './Common';
 import { TemperatureIcon } from '../Common/TemperatureIcon';
-import {Button} from './Common/Button';
 import {disableBodyScroll, enableBodyScroll} from 'body-scroll-lock';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)

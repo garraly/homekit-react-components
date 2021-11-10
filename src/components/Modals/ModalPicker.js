@@ -2,6 +2,7 @@ import React, {useRef} from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { ModalContainer, ModalContent, ModalHeader, ModalStyle} from './Common';
+import 'rmc-picker-scroll/assets/index.css';
 import Picker from 'rmc-picker-scroll';
 import {Button} from './Common/Button';
 import {disableBodyScroll, enableBodyScroll} from 'body-scroll-lock';

@@ -41,20 +41,22 @@ export function ModalPicker(props) {
                     icon={props.icon}
                 />
                 <ModalContent>
-                    <Picker
-                        selectedValue={props.value}
-                        onValueChange={onChangePicker}
-                    >
-                        <Picker.Item value={'off'} key={'off'}>
-                            off
-                        </Picker.Item>
-                        <Picker.Item value={'on'} key={'on'}>
-                            on
-                        </Picker.Item>
-                        <Picker.Item value={'auto'} key={'auto'}>
-                            auto
-                        </Picker.Item>
-                    </Picker>
+                    <div style={{width: 150}}>
+                        <Picker
+                            selectedValue={props.value}
+                            onValueChange={onChangePicker}
+                        >
+                            <Picker.Item value={'off'} key={'off'}>
+                                off
+                            </Picker.Item>
+                            <Picker.Item value={'on'} key={'on'}>
+                                on
+                            </Picker.Item>
+                            <Picker.Item value={'auto'} key={'auto'}>
+                                auto
+                            </Picker.Item>
+                        </Picker>
+                    </div>
                     {
                         props.shouldConfirm?
                             <>

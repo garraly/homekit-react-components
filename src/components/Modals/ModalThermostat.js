@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import CircularSlider from '@fseehawer/react-circular-slider';
 
-import {ModalContainer, ModalContent, ModalHeader, ModalStyle, Picker} from './Common';
+import {ModalContainer, ModalContent, ModalHeader, ModalStyle} from './Common';
+import Picker from 'react-mobile-picker';
 import { TemperatureIcon } from '../Common/TemperatureIcon';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
@@ -32,6 +33,7 @@ const LabelTemperature = styled.div`
 `;
 
 export function ModalThermostat(props) {
+  const [pickerValue, setPickerValue] = useState('auto');
 
   const on = props.currentMode !== 'Off';
   const stateLabel = on ? `调节至 ${props.targetTemperature.toFixed(1)}°` : '关';
@@ -43,6 +45,8 @@ export function ModalThermostat(props) {
   }
 
   function handleModeChange(value) {
+    console.log(value);
+    setPickerValue(value);
     if (typeof props.onModeChange == "function") { 
       props.onModeChange(value);
     }
@@ -89,9 +93,15 @@ export function ModalThermostat(props) {
               <LabelTemperature>{on ? props.targetTemperature.toFixed(1) : props.currentTemperature.toFixed(1)}°</LabelTemperature>
             </LabelContainer>
           </CircularSliderContainer>
-          <div>
-            <Picker onChange={handleModeChange} value={props.currentMode} data={[{value: 'off', label: '关闭'},{value: 'on', label: '开启'},{value: 'auto', label: '自动'}]}/>
-          </div>
+          <Picker
+              height={100}
+              optionGroups={{
+                mode: props.modes,
+              }}
+              valueGroups={{
+                mode: props.currentMode,
+              }}
+              onChange={handleModeChange} />
         </ModalContent>
       </ModalContainer>
     </Modal>

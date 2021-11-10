@@ -56,6 +56,7 @@
     "@fseehawer/react-circular-slider": "^2.3.5",
     "classnames": "^2.3.1",
     "react-circular-progressbar": "^2.0.4",
+    "react-mobile-picker": "^0.1.13",
     "react-modal": "^3.12.1",
     "rmc-picker-scroll": "^5.0.10"
   }

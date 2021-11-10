@@ -42,7 +42,7 @@ export function ModalThermostat(props) {
     }
   }
 
-  function handleModeChange(key, value) {
+  function handleModeChange(value) {
     if (typeof props.onModeChange == "function") { 
       props.onModeChange(value);
     }
@@ -89,17 +89,8 @@ export function ModalThermostat(props) {
               <LabelTemperature>{on ? props.targetTemperature.toFixed(1) : props.currentTemperature.toFixed(1)}°</LabelTemperature>
             </LabelContainer>
           </CircularSliderContainer>
-          <div onTouchStart={(e)=>{e.preventDefault()}}>
-            <Picker height={100}/>
-            {/*<Picker*/}
-            {/*  height={100}*/}
-            {/*  optionGroups={{*/}
-            {/*    mode: props.modes,*/}
-            {/*  }}*/}
-            {/*  valueGroups={{*/}
-            {/*    mode: props.currentMode,*/}
-            {/*  }}*/}
-            {/*  onChange={handleModeChange} />*/}
+          <div>
+            <Picker onChange={handleModeChange} value={props.currentMode} data={[{value: 'off', label: '关闭'},{value: 'on', label: '开启'},{value: 'auto', label: '自动'}]}/>
           </div>
         </ModalContent>
       </ModalContainer>

@@ -1,43 +1,43 @@
 import React from 'react';
-import {Scroller} from '@mobiscroll/react-lite';
-import '@mobiscroll/react-lite/dist/css/mobiscroll.min.css';
+import PropTypes from 'prop-types';
+import RmcPicker from 'rmc-picker-scroll';
 
-Scroller.settings = {
-    theme: 'ios',
-    themeVariant: 'light',
-};
+export function Picker(props) {
 
-
-const wheels = [
-    [{
-        circular: false,
-        data: [{
-            display: '关停',
-            value: 'off',
-        },{
-            display: '启动',
-            value: 'on',
-        },{
-            display: '自动',
-            value: 'auto',
-        }],
-    }],
-];
-
-export class Picker extends React.Component {
-
-    render() {
-        return (
-            <Scroller
-                value={'auto'}
-                display="inline"
-                type="hidden"
-                height={this.props.height}
-                width={150}
-                wheels={wheels}
-                showLabel={false}
-                validate={this.validate}
-            />
-        );
-    }
+    return (
+        <RmcPicker
+            selectedValue={props.value}
+            disabled={false}
+            onValueChange={(value) => {
+                if (typeof props.onChange == 'function') {
+                    props.onChange(value);
+                }
+            }}
+        >
+            {
+                props.data.map((item) => (
+                    <RmcPicker.Item value={item.value} key={item.value}>
+                        {item.label}
+                    </RmcPicker.Item>
+                ))
+            }
+            <RmcPicker.Item value={'on'} key={'2'}>
+                on
+            </RmcPicker.Item>
+            <RmcPicker.Item value={'auto'} key={'3'}>
+                auto
+            </RmcPicker.Item>
+        </RmcPicker>
+    );
 }
+
+Picker.propTypes = {
+    /** Action triggered on slider change */
+    onChange: PropTypes.func.isRequired,
+    /** Value of the picker */
+    value: PropTypes.string.isRequired,
+    /** Height of the container */
+    height: PropTypes.number,
+    /** Data of the picker */
+    data: PropTypes.array.isRequired,
+};

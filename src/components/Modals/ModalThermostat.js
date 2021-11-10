@@ -1,11 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import CircularSlider from '@fseehawer/react-circular-slider';
-import Picker from 'react-mobile-picker';
 
-import { ModalContainer, ModalContent, ModalHeader, ModalStyle } from './Common';
+import {ModalContainer, ModalContent, ModalHeader, ModalStyle, Picker} from './Common';
 import { TemperatureIcon } from '../Common/TemperatureIcon';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
@@ -49,15 +48,6 @@ export function ModalThermostat(props) {
     }
   }
 
-  useEffect(()=>{
-    if (props.show) {
-      document.body.style.overflow = 'hidden';
-      return ()=>{
-        document.body.style.overflow = '';
-      };
-    }
-  },[props.show]);
-
   return (
     <Modal
       isOpen={props.show}
@@ -100,15 +90,16 @@ export function ModalThermostat(props) {
             </LabelContainer>
           </CircularSliderContainer>
           <div onTouchStart={(e)=>{e.preventDefault()}}>
-            <Picker
-              height={100}
-              optionGroups={{
-                mode: props.modes,
-              }}
-              valueGroups={{
-                mode: props.currentMode,
-              }}
-              onChange={handleModeChange} />
+            <Picker height={100}/>
+            {/*<Picker*/}
+            {/*  height={100}*/}
+            {/*  optionGroups={{*/}
+            {/*    mode: props.modes,*/}
+            {/*  }}*/}
+            {/*  valueGroups={{*/}
+            {/*    mode: props.currentMode,*/}
+            {/*  }}*/}
+            {/*  onChange={handleModeChange} />*/}
           </div>
         </ModalContent>
       </ModalContainer>

@@ -50,7 +50,8 @@ export function LightCard(props) {
         brightness={props.brightness}
         onBrightnessChange={props.onBrightnessChange}
         show={showModal}
-        close={handleCloseModal} />
+        close={handleCloseModal}
+        shouldConfirm={props.shouldConfirm}/>
     </React.Fragment>
   );
 }
@@ -70,6 +71,8 @@ LightCard.propTypes = {
   brightness: PropTypes.number,
   /** Capabilities of the light (dimmable, color, ...) */
   capabilities: PropTypes.object,
+  /** callback onchange just click confirm button **/
+  shouldConfirm: PropTypes.bool,
 };
 
 LightCard.defaultProps = {

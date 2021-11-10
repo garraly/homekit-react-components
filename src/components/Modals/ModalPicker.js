@@ -1,14 +1,22 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { ModalContainer, ModalContent, ModalHeader, ModalStyle} from './Common';
 import Picker from 'react-mobile-picker';
+import {Button} from './Common/Button';
+import {disableBodyScroll, enableBodyScroll} from 'body-scroll-lock';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('html');
 
 
-export function ModalNumber(props) {
+export function ModalPicker(props) {
+    const modalRef = useRef();
+    const modalProps = {
+        onAfterOpen: () => disableBodyScroll(modalRef.current),
+        onAfterClose: () => enableBodyScroll(modalRef.current),
+        ref: modalRef,
+    };
 
     const onChangePicker = (name, value) => {
         if (props.onChange) {
@@ -22,6 +30,7 @@ export function ModalNumber(props) {
             onRequestClose={props.close}
             contentLabel="Example Modal"
             style={ModalStyle}
+            {...modalProps}
         >
             <ModalContainer>
                 <ModalHeader
@@ -34,17 +43,22 @@ export function ModalNumber(props) {
                     <Picker
                         height={100}
                         optionGroups={props.optionGroups}
-                        valueGroups={props.valueGroups}
+                        valueGroups={props.value}
                         onChange={onChangePicker} />
+                    {
+                        props.shouldConfirm?
+                            <>
+                                <div style={{height: 36}}/>
+                                <Button onClick={()=>{}} title={'确认'}/>
+                            </> : null
+                    }
                 </ModalContent>
             </ModalContainer>
         </Modal>
     );
 }
 
-ModalNumber.propTypes = {
-    /** Brightness value */
-    brightness: PropTypes.number,
+ModalPicker.propTypes = {
     /** Method to close the modal */
     close: PropTypes.func.isRequired,
     /** Name of the light */
@@ -57,7 +71,8 @@ ModalNumber.propTypes = {
     stateLabel: PropTypes.string,
     /** description of the modal */
     icon: PropTypes.string,
-    value: PropTypes.number.isRequired,
-    optionGroups: PropTypes.object,
-    valueGroups: PropTypes.object,
+    value: PropTypes.object.isRequired,
+    optionGroups: PropTypes.object.isRequired,
+    /** callback onchange just click confirm button **/
+    shouldConfirm: PropTypes.bool,
 };

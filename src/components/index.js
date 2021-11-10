@@ -12,3 +12,4 @@ export { ThermostatCard } from './ThermostatCard';
 export { SceneCard } from './SceneCard';
 export { GridCard } from './GridCard';
 export { NumberCard } from './NumberCard';
+export { PickerCard } from './PickerCard';

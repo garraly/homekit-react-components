@@ -44,7 +44,8 @@ export function ThermostatCard(props) {
         targetTemperature={props.targetTemperature}
         onTemperatureChange={props.onTemperatureChange}
         show={showModal}
-        close={handleCloseModal} />
+        close={handleCloseModal}
+        shouldConfirm={props.shouldConfirm}/>
     </React.Fragment>
   );
 }
@@ -68,6 +69,8 @@ ThermostatCard.propTypes = {
   tempMax: PropTypes.number,
   /** Temperature min */
   tempMin: PropTypes.number,
+  /** callback onchange just click confirm button **/
+  shouldConfirm: PropTypes.bool,
 };
 
 ThermostatCard.defaultProps = {

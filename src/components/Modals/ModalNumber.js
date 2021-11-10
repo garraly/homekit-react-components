@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { ModalContainer, ModalContent, ModalHeader, ModalStyle, NumberButton, Progress} from './Common';
 import styled from '@emotion/styled';
+import {Button} from './Common/Button';
+import {disableBodyScroll, enableBodyScroll} from 'body-scroll-lock';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('html');
@@ -28,6 +30,12 @@ const LabelTemperature = styled.div`
 `;
 
 export function ModalNumber(props) {
+  const modalRef = useRef();
+  const modalProps = {
+    onAfterOpen: () => disableBodyScroll(modalRef.current),
+    onAfterClose: () => enableBodyScroll(modalRef.current),
+    ref: modalRef,
+  };
 
   useEffect(()=>{
     if (props.show) {
@@ -44,6 +52,7 @@ export function ModalNumber(props) {
       onRequestClose={props.close}
       contentLabel="Example Modal"
       style={ModalStyle}
+      {...modalProps}
     >
       <ModalContainer>
         <ModalHeader
@@ -61,6 +70,13 @@ export function ModalNumber(props) {
             </LabelContainer>
           </CircularSliderContainer>
           <NumberButton onChange={() => {}} value={10} tempMax={props.tempMax} tempMin={props.tempMin} step={props.step}/>
+          {
+            props.shouldConfirm?
+                <>
+                  <div style={{height: 36}}/>
+                  <Button onClick={()=>{}} title={'确认'}/>
+                </> : null
+          }
         </ModalContent>
       </ModalContainer>
     </Modal>
@@ -87,4 +103,6 @@ ModalNumber.propTypes = {
   step: PropTypes.number,
   value: PropTypes.number.isRequired,
   unit: PropTypes.string,
+  /** callback onchange just click confirm button **/
+  shouldConfirm: PropTypes.bool,
 };

@@ -39,7 +39,8 @@ export function NumberCard(props) {
         tempMin={props.tempMin}
         step={props.step}
         show={showModal}
-        close={handleCloseModal} />
+        close={handleCloseModal}
+        shouldConfirm={props.shouldConfirm}/>
     </React.Fragment>
   );
 }
@@ -67,4 +68,6 @@ NumberCard.propTypes = {
   icon: PropTypes.string,
   value: PropTypes.number.isRequired,
   step: PropTypes.number,
+  /** callback onchange just click confirm button **/
+  shouldConfirm: PropTypes.bool,
 };

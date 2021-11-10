@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
@@ -7,6 +7,8 @@ import CircularSlider from '@fseehawer/react-circular-slider';
 import {ModalContainer, ModalContent, ModalHeader, ModalStyle} from './Common';
 import Picker from 'react-mobile-picker';
 import { TemperatureIcon } from '../Common/TemperatureIcon';
+import {Button} from './Common/Button';
+import {disableBodyScroll, enableBodyScroll} from 'body-scroll-lock';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('html');
@@ -14,7 +16,7 @@ Modal.setAppElement('html');
 
 const CircularSliderContainer = styled.div`
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 `;
 
 const LabelContainer = styled.div`
@@ -33,10 +35,14 @@ const LabelTemperature = styled.div`
 `;
 
 export function ModalThermostat(props) {
-  const [pickerValue, setPickerValue] = useState('auto');
-
   const on = props.currentMode !== 'Off';
   const stateLabel = on ? `调节至 ${props.targetTemperature.toFixed(1)}°` : '关';
+  const modalRef = useRef();
+  const modalProps = {
+    onAfterOpen: () => disableBodyScroll(modalRef.current),
+    onAfterClose: () => enableBodyScroll(modalRef.current),
+    ref: modalRef,
+  };
 
   function handleSliderChange(value) {
     if (typeof props.onTemperatureChange == "function") { 
@@ -44,10 +50,8 @@ export function ModalThermostat(props) {
     }
   }
 
-  function handleModeChange(value) {
-    console.log(value);
-    setPickerValue(value);
-    if (typeof props.onModeChange == "function") { 
+  function handleModeChange(_, value) {
+    if (typeof props.onModeChange == "function") {
       props.onModeChange(value);
     }
   }
@@ -58,6 +62,7 @@ export function ModalThermostat(props) {
       onRequestClose={props.close}
       contentLabel="Example Modal"
       style={ModalStyle}
+      {...modalProps}
     >
       <ModalContainer>
         <ModalHeader
@@ -102,6 +107,13 @@ export function ModalThermostat(props) {
                 mode: props.currentMode,
               }}
               onChange={handleModeChange} />
+          {
+            props.shouldConfirm?
+                <>
+                  <div style={{height: 36}}/>
+                  <Button onClick={()=>{}} title={'确认'}/>
+                </> : null
+          }
         </ModalContent>
       </ModalContainer>
     </Modal>
@@ -133,4 +145,6 @@ ModalThermostat.propTypes = {
   tempMax: PropTypes.number,
   /** Temperature min */
   tempMin: PropTypes.number,
+  /** callback onchange just click confirm button **/
+  shouldConfirm: PropTypes.bool,
 };

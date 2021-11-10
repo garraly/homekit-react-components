@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
 import { ModalContainer, ModalContent, ModalHeader, ModalStyle, Slider, Switch } from './Common';
 import LightIconSvg from '../../resources/icons/light-bulb.svg';
+import {Button} from './Common/Button';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('html');
@@ -11,7 +13,12 @@ Modal.setAppElement('html');
 
 export function ModalLight(props) {
   const [color] = useState('#F8CC46');
-
+  const modalRef = useRef();
+  const modalProps = {
+    onAfterOpen: () => disableBodyScroll(modalRef.current),
+    onAfterClose: () => enableBodyScroll(modalRef.current),
+    ref: modalRef,
+  };
 
   const stateLabel = props.capabilities.SUPPORT_BRIGHTNESS ?
     (props.brightness > 0 ? `${props.brightness}% Brightness` : props.state) :
@@ -23,14 +30,6 @@ export function ModalLight(props) {
     }
   }
 
-  useEffect(()=>{
-    if (props.show) {
-      document.body.style.overflow = 'hidden'
-      return ()=>{
-        document.body.style.overflow = ''
-      }
-    }
-  },[props.show])
 
   return (
     <Modal
@@ -38,6 +37,7 @@ export function ModalLight(props) {
       onRequestClose={props.close}
       contentLabel="Example Modal"
       style={ModalStyle}
+      {...modalProps}
     >
       <ModalContainer>
         <ModalHeader
@@ -64,6 +64,13 @@ export function ModalLight(props) {
             <div>
               TODO: Implement color picker
             </div> : null
+          }
+          {
+            props.shouldConfirm?
+                <>
+                  <div style={{height: 36}}/>
+                  <Button onClick={()=>{}} title={'确认'}/>
+                </> : null
           }
         </ModalContent>
       </ModalContainer>
@@ -94,4 +101,6 @@ ModalLight.propTypes = {
   show: PropTypes.bool.isRequired,
   /** State label of the light */
   state: PropTypes.string.isRequired,
+  /** callback onchange just click confirm button **/
+  shouldConfirm: PropTypes.bool,
 };

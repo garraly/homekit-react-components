@@ -2,7 +2,7 @@ import React, {useRef} from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { ModalContainer, ModalContent, ModalHeader, ModalStyle} from './Common';
-import Picker from 'react-mobile-picker';
+import Picker from 'rmc-picker-scroll';
 import {Button} from './Common/Button';
 import {disableBodyScroll, enableBodyScroll} from 'body-scroll-lock';
 
@@ -18,9 +18,9 @@ export function ModalPicker(props) {
         ref: modalRef,
     };
 
-    const onChangePicker = (name, value) => {
+    const onChangePicker = (value) => {
         if (props.onChange) {
-            props.onChange(name, value);
+            props.onChange(value);
         }
     };
 
@@ -41,10 +41,19 @@ export function ModalPicker(props) {
                 />
                 <ModalContent>
                     <Picker
-                        height={100}
-                        optionGroups={props.optionGroups}
-                        valueGroups={props.value}
-                        onChange={onChangePicker} />
+                        selectedValue={props.value}
+                        onValueChange={onChangePicker}
+                    >
+                        <Picker.Item value={'off'} key={'off'}>
+                            off
+                        </Picker.Item>
+                        <Picker.Item value={'on'} key={'on'}>
+                            on
+                        </Picker.Item>
+                        <Picker.Item value={'auto'} key={'auto'}>
+                            auto
+                        </Picker.Item>
+                    </Picker>
                     {
                         props.shouldConfirm?
                             <>
@@ -71,8 +80,8 @@ ModalPicker.propTypes = {
     stateLabel: PropTypes.string,
     /** description of the modal */
     icon: PropTypes.string,
-    value: PropTypes.object.isRequired,
-    optionGroups: PropTypes.object.isRequired,
+    value: PropTypes.string.isRequired,
+    options: PropTypes.array.isRequired,
     /** callback onchange just click confirm button **/
     shouldConfirm: PropTypes.bool,
 };

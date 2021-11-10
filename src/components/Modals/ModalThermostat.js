@@ -5,7 +5,6 @@ import styled from '@emotion/styled';
 import CircularSlider from '@fseehawer/react-circular-slider';
 
 import {ModalContainer, ModalContent, ModalHeader, ModalStyle} from './Common';
-import Picker from 'react-mobile-picker';
 import { TemperatureIcon } from '../Common/TemperatureIcon';
 import {Button} from './Common/Button';
 import {disableBodyScroll, enableBodyScroll} from 'body-scroll-lock';
@@ -98,22 +97,22 @@ export function ModalThermostat(props) {
               <LabelTemperature>{on ? props.targetTemperature.toFixed(1) : props.currentTemperature.toFixed(1)}°</LabelTemperature>
             </LabelContainer>
           </CircularSliderContainer>
-          <Picker
-              height={100}
-              optionGroups={{
-                mode: props.modes,
-              }}
-              valueGroups={{
-                mode: props.currentMode,
-              }}
-              onChange={handleModeChange} />
-          {
-            props.shouldConfirm?
-                <>
-                  <div style={{height: 36}}/>
-                  <Button onClick={()=>{}} title={'确认'}/>
-                </> : null
-          }
+          {/*<Picker*/}
+          {/*    height={100}*/}
+          {/*    optionGroups={{*/}
+          {/*      mode: props.modes,*/}
+          {/*    }}*/}
+          {/*    valueGroups={{*/}
+          {/*      mode: props.currentMode,*/}
+          {/*    }}*/}
+          {/*    onChange={handleModeChange} />*/}
+          {/*{*/}
+          {/*  props.shouldConfirm?*/}
+          {/*      <>*/}
+          {/*        <div style={{height: 36}}/>*/}
+          {/*        <Button onClick={()=>{}} title={'确认'}/>*/}
+          {/*      </> : null*/}
+          {/*}*/}
         </ModalContent>
       </ModalContainer>
     </Modal>

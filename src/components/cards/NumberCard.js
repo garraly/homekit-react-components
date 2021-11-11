@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import {GridCard} from "./GridCard";
-import {ModalNumber} from './Modals';
+import {ModalNumber} from '../Modals';
 
 
 export function NumberCard(props) {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import LightIconSvg from '../resources/icons/light-bulb.svg';
-import { GridCard } from './GridCard';
+import { GridCard } from './cards/GridCard';
 import { ModalLight } from './Modals';
 
 const LightIconContainer = styled.div`

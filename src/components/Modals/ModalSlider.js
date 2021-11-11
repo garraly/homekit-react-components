@@ -1,16 +1,15 @@
-import React, {useMemo, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import { ModalContainer, ModalContent, ModalHeader, ModalStyle, Button} from './Common';
-import 'rmc-picker-scroll/assets/index.css';
-import Picker from 'rmc-picker-scroll';
+
+import {ModalContainer, ModalContent, ModalHeader, ModalStyle, Button, Slider} from './Common';
 import {disableBodyScroll, enableBodyScroll} from 'body-scroll-lock';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('html');
 
 
-export function ModalPicker(props) {
+export function ModalSlider(props) {
     const modalRef = useRef();
     const modalProps = {
         onAfterOpen: () => disableBodyScroll(modalRef.current),
@@ -18,19 +17,28 @@ export function ModalPicker(props) {
         ref: modalRef,
     };
 
-    const onChangePicker = (value) => {
-        if (props.onChange) {
+    const [value, setValue] = useState(props.value);
+    const stateLabel = props.stateLabel;
+
+    useEffect(() => {
+        if (props.show) {
+            setValue(props.value);
+        }
+    }, [props.show]);
+
+    const onChange = (value) => {
+        setValue(value);
+        if (typeof props.onChange === 'function' && !props.shouldConfirm) {
             props.onChange(value);
         }
     };
 
-    const pickerOptionItems = useMemo(()=>{
-        return props.options?.map((item,index)=>(
-            <Picker.Item value={item.value} key={`${item.value}${index}`}>
-                {item.label}
-            </Picker.Item>
-        ));
-    },[props.options]);
+    const onConfirm = () => {
+        props.close(false);
+        if (typeof props.onChange === 'function') {
+            props.onChange(value);
+        }
+    };
 
     return (
         <Modal
@@ -43,24 +51,23 @@ export function ModalPicker(props) {
             <ModalContainer>
                 <ModalHeader
                     title={props.name}
-                    subtitle={props.stateLabel}
+                    subtitle={stateLabel}
                     close={props.close}
-                    icon={props.icon}
+                    icon={
+                        props.icon
+                    }
                 />
                 <ModalContent>
-                    <div style={{width: 150}}>
-                        <Picker
-                            selectedValue={props.value}
-                            onValueChange={onChangePicker}
-                        >
-                            {pickerOptionItems}
-                        </Picker>
-                    </div>
+                    <Slider
+                        min={props.min}
+                        max={props.max}
+                        onChange={onChange}
+                        value={value}/>
                     {
-                        props.shouldConfirm?
+                        props.shouldConfirm ?
                             <>
                                 <div style={{height: 36}}/>
-                                <Button onClick={()=>{}} title={'确认'}/>
+                                <Button onClick={onConfirm} title={'确认'}/>
                             </> : null
                     }
                 </ModalContent>
@@ -69,21 +76,22 @@ export function ModalPicker(props) {
     );
 }
 
-ModalPicker.propTypes = {
+ModalSlider.propTypes = {
+    icon: PropTypes.element,
     /** Method to close the modal */
     close: PropTypes.func.isRequired,
     /** Name of the light */
     name: PropTypes.string.isRequired,
-    /** Action triggered on onChange number */
+    /** Action triggered on toggle switch */
     onChange: PropTypes.func,
+    /** State of the light */
+    value: PropTypes.bool,
     /** State of the modal */
     show: PropTypes.bool.isRequired,
-    /** description of the modal */
-    stateLabel: PropTypes.string,
-    /** description of the modal */
-    icon: PropTypes.string,
-    value: PropTypes.string.isRequired,
-    options: PropTypes.array.isRequired,
+    /** State label of the light */
+    stateLabel: PropTypes.string.isRequired,
     /** callback onchange just click confirm button **/
     shouldConfirm: PropTypes.bool,
+    max: PropTypes.number,
+    min: PropTypes.number,
 };

@@ -25,8 +25,8 @@ const CustomSlider = styled.input`
     width: 20px;
     height: 40px;
     border-radius: 20px;
-    border: 8px solid ${props => props.color};
-    box-shadow: -100vw 0 0 100vw ${props => props.color};
+    border: 8px solid #555;
+    box-shadow: -100vw 0 0 100vw #555;
   }
 `;
 
@@ -48,21 +48,20 @@ export function Slider(props) {
     <SliderContainer>
       <CustomSlider
         type="range"
-        min="0"
-        max="100"
+        min={props.min}
+        max={props.max}
         value={value}
         onChange={handleChange}
-        color={props.color}
       />
     </SliderContainer>
   );
 }
 
 Slider.propTypes = {
-  /** Color of the slider */
-  color: PropTypes.string.isRequired,
   /** Action triggered on slider change */
   onChange: PropTypes.func.isRequired,
   /** Value of the slider */
   value: PropTypes.number.isRequired,
+  max: PropTypes.number,
+  min: PropTypes.number,
 };

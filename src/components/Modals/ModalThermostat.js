@@ -4,10 +4,9 @@ import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import CircularSlider from '@fseehawer/react-circular-slider';
 
-import {ModalContainer, ModalContent, ModalHeader, ModalStyle} from './Common';
+import {ModalContainer, ModalContent, ModalHeader, ModalStyle, Button} from './Common';
 import { TemperatureIcon } from '../Common/TemperatureIcon';
 import {disableBodyScroll, enableBodyScroll} from 'body-scroll-lock';
-import {Button} from './Common/Button';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('html');

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { ModalThermostat } from './Modals';
 import { TemperatureIcon } from './Common/TemperatureIcon';
-import {GridCard} from "./GridCard";
+import {GridCard} from "./cards/GridCard";
 
 
 export function ThermostatCard(props) {

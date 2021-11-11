@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { GridCard } from './GridCard';
-import {ModalPicker} from './Modals';
+import {ModalPicker} from '../Modals';
 
 
 export function PickerCard(props) {
@@ -37,7 +37,8 @@ export function PickerCard(props) {
         icon={props.icon}
         value={{test: 'auto'}}
         optionGroups={{test: ['off','on','auto']}}
-        shouldConfirm={props.shouldConfirm}/>
+        shouldConfirm={props.shouldConfirm}
+        options={[{label: '关',value: 'off'}, {label: 'on',value: 'on'}, {label: 'auto',value: 'auto'}]}/>
     </React.Fragment>
   );
 }

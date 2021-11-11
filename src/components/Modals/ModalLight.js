@@ -1,11 +1,11 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
 import { ModalContainer, ModalContent, ModalHeader, ModalStyle, Slider, Switch } from './Common';
 import LightIconSvg from '../../resources/icons/light-bulb.svg';
 import {Button} from './Common/Button';
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('html');
@@ -25,7 +25,7 @@ export function ModalLight(props) {
     (props.state);
 
   function handleSliderChange(value) {
-    if (typeof props.onBrightnessChange == "function") { 
+    if (typeof props.onBrightnessChange == "function") {
       props.onBrightnessChange(value);
     }
   }
@@ -59,11 +59,6 @@ export function ModalLight(props) {
               on={props.on}
               onToggle={props.onToggle}
             />
-          }
-          {props.capabilities.SUPPORT_COLOR ?
-            <div>
-              TODO: Implement color picker
-            </div> : null
           }
           {
             props.shouldConfirm?

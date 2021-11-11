@@ -7,7 +7,6 @@ import CircularSlider from '@fseehawer/react-circular-slider';
 import {ModalContainer, ModalContent, ModalHeader, ModalStyle} from './Common';
 import { TemperatureIcon } from '../Common/TemperatureIcon';
 import {disableBodyScroll, enableBodyScroll} from 'body-scroll-lock';
-import Picker from 'rmc-picker-scroll';
 import {Button} from './Common/Button';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
@@ -45,16 +44,11 @@ export function ModalThermostat(props) {
   };
 
   function handleSliderChange(value) {
-    if (typeof props.onTemperatureChange == "function") { 
+    if (typeof props.onTemperatureChange == "function") {
       props.onTemperatureChange(value);
     }
   }
 
-  function handleModeChange(value) {
-    if (typeof props.onModeChange == "function") {
-      props.onModeChange(value);
-    }
-  }
 
   return (
     <Modal
@@ -98,29 +92,6 @@ export function ModalThermostat(props) {
               <LabelTemperature>{on ? props.targetTemperature.toFixed(1) : props.currentTemperature.toFixed(1)}°</LabelTemperature>
             </LabelContainer>
           </CircularSliderContainer>
-          <Picker
-              selectedValue={props.modes}
-              onValueChange={handleModeChange}
-          >
-            <Picker.Item value={'off'} key={'off'}>
-              off
-            </Picker.Item>
-            <Picker.Item value={'on'} key={'on'}>
-              on
-            </Picker.Item>
-            <Picker.Item value={'auto'} key={'auto'}>
-              auto
-            </Picker.Item>
-          </Picker>
-          {/*<Picker*/}
-          {/*    height={100}*/}
-          {/*    optionGroups={{*/}
-          {/*      mode: props.modes,*/}
-          {/*    }}*/}
-          {/*    valueGroups={{*/}
-          {/*      mode: props.currentMode,*/}
-          {/*    }}*/}
-          {/*    onChange={handleModeChange} />*/}
           {
             props.shouldConfirm?
                 <>

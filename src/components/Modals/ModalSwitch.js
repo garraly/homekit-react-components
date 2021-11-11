@@ -88,7 +88,8 @@ ModalSwitch.propTypes = {
     /** State of the modal */
     show: PropTypes.bool.isRequired,
     /** State label of the light */
-    stateLabel: PropTypes.string.isRequired,
+    stateLabel: PropTypes.string,
     /** callback onchange just click confirm button **/
     shouldConfirm: PropTypes.bool,
 };
+

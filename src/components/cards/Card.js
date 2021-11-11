@@ -122,5 +122,8 @@ Card.propTypes = {
   /** Name label of the card */
   name: PropTypes.string.isRequired,
   /** State label of the card */
-  state: PropTypes.string.isRequired,
+  state: PropTypes.string,
+};
+Card.defaultProps = {
+  state: '',
 };
